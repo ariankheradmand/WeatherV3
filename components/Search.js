@@ -102,7 +102,7 @@ export default function CitySearch() {
         Array.isArray(data?.results) &&
         data.results.length === 0 && (
           <div className="text-center text-gray-500 py-8">
-            No cities found for "{searchTerm}"
+            No city founded!
           </div>
         )}
 
