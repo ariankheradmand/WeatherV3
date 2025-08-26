@@ -28,45 +28,45 @@ function Results({ latitude, longitude, cityName }) {
   const weatherCodeToIcon = (code) => {
     switch (code) {
       case 0: // Clear sky
-        return <Sun className="size-25 " />;
+        return <Sun className=" size-17 md:size-25 " />;
       case 1: // Mainly clear
       case 2: // Partly cloudy
-        return <CloudSun className="size-25 " />;
+        return <CloudSun className=" size-17 md:size-25 " />;
       case 3: // Overcast
-        return <Cloud className="size-25 " />;
+        return <Cloud className=" size-17 md:size-25 " />;
       case 45: // Fog
       case 48: // Depositing rime fog
-        return <CloudFog className="size-25 " />;
+        return <CloudFog className=" size-17 md:size-25 " />;
       case 51: // Light drizzle
       case 53: // Moderate drizzle
       case 55: // Dense drizzle
       case 56: // Freezing drizzle light
       case 57: // Freezing drizzle dense
-        return <Umbrella className="size-25 " />;
+        return <Umbrella className=" size-17 md:size-25 " />;
       case 61: // Slight rain
       case 63: // Moderate rain
       case 65: // Heavy rain
       case 66: // Light freezing rain
       case 67: // Heavy freezing rain
-        return <CloudRain className="size-25 " />;
+        return <CloudRain className=" size-17 md:size-25 " />;
       case 71: // Slight snow
       case 73: // Moderate snow
       case 75: // Heavy snow
       case 77: // Snow grains
-        return <CloudSnow className="size-25 " />;
+        return <CloudSnow className=" size-17 md:size-25 " />;
       case 80: // Rain showers slight
       case 81: // Moderate rain showers
       case 82: // Violent rain showers
-        return <CloudRain />;
+        return <CloudRain className=" size-17 md:size-25 "/>;
       case 85: // Slight snow showers
       case 86: // Heavy snow showers
-        return <CloudSnow />;
+        return <CloudSnow className=" size-17 md:size-25 "/>;
       case 95: // Thunderstorm slight or moderate
       case 96: // Thunderstorm with slight hail
       case 99: // Thunderstorm with heavy hail
-        return <CloudLightning />;
+        return <CloudLightning className=" size-17 md:size-25 "/>;
       default:
-        return <Cloud />;
+        return <Cloud className=" size-17 md:size-25 "/>;
     }
   };
 
@@ -180,7 +180,7 @@ function Results({ latitude, longitude, cityName }) {
       )}
       {!isFetching && !isLoading && !error && (
         <div className="flex flex-col items-center justify-center w-full gap-4 py-2">
-          <span className="flex flex-col items-center justify-center opacity-75 absolute ">
+          <span className="flex flex-col items-center justify-center opacity-75 absolute gap-2 md:gap-0">
             {weatherCodeToIcon(data.current.weather_code)}
             <span className="text-sm font-medium text-gray-600">
               {weatherCodeToText(data.current.weather_code)}
