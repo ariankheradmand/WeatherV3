@@ -38,8 +38,8 @@ export default function CitySearch({ setLongitude, setLatitude , setCityName}) {
           className={`w-full outline-none focus:ring-0 focus:outline-none px-4 py-2 border border-gray-300 rounded-md`}
         />
 
-        {isFetching && (
-          <div className="w-full flex flex-col gap-2 bg-white py-2 shadow px-1  rounded-md absolute top-[44px] z-500">
+        {isFetching && isLoading && (
+          <div className={`w-full ${searchTerm == "" ? "hidden" : "flex"}  flex-col gap-2 bg-white py-2 shadow px-1  rounded-md absolute top-[44px] z-500`}>
             {Array.from({ length: 10 }).map((_, i) => {
               return (
                 <div
