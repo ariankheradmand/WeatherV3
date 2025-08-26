@@ -3,17 +3,13 @@ import { useState } from "react";
 import { useGeocodingSearch } from "../hooks/use-geocoding";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Image from "next/image";
 
-export default function CitySearch() {
+export default function CitySearch({ setLongitude, setLatitude , setCityName}) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCity, setSelectedCity] = useState(null);
 
   const { data, isLoading, error, isFetching } = useGeocodingSearch(searchTerm);
 
-  const handleCitySelect = (city) => {
-    setSelectedCity(city);
-  };
+  
 
   useGSAP(() => {
     gsap.fromTo(
@@ -31,7 +27,7 @@ export default function CitySearch() {
   }, [isFetching]);
 
   return (
-    <div className="w-full flex flex-col items-center justify-center relative">
+    <div className="w-full flex flex-col items-center justify-center relative ">
       {/* Search Input */}
       <div className="w-full">
         <input
@@ -43,7 +39,7 @@ export default function CitySearch() {
         />
 
         {isFetching && (
-          <div className="w-full flex flex-col gap-2 bg-white py-2 shadow px-1  rounded-md absolute top-[44px]">
+          <div className="w-full flex flex-col gap-2 bg-white py-2 shadow px-1  rounded-md absolute top-[44px] z-500">
             {Array.from({ length: 10 }).map((_, i) => {
               return (
                 <div
@@ -68,20 +64,27 @@ export default function CitySearch() {
       {/* Results */}
 
       {data?.results && data.results.length > 0 && (
-        <div className="w-full flex flex-col gap-2 bg-white py-2 shadow px-1 rounded-md absolute top-[44px]">
+        <div className="w-full flex flex-col gap-2 bg-white py-2 shadow px-1 rounded-md absolute top-[44px] z-500">
           {data.results
             .slice()
             .sort((a, b) => b.population - a.population)
             .map((city) => (
               <div
+                onClick={() => {
+                  setLatitude(city.latitude);
+                  setLongitude(city.longitude);
+                  setCityName(city.name);
+                  console.log(city.longitude , city.latitude)
+                  setSearchTerm("")
+                }}
                 key={city.id}
-                className="bg-gray w-full h-10 rounded-md relative overflow-hidden px-2 flex items-center justify-between"
+                className="bg-gray w-full h-10 rounded-md relative overflow-hidden px-2 flex items-center justify-between hover:scale-101 hover:bg-gray/45 transition-all cursor-pointer"
               >
-                <div className="flex items-center justify-between w-full gap-2 relative" >
+                <div className="flex items-center justify-between w-full gap-2 relative">
                   <div className="flex items-center justify-center gap-2">
                     <h3 className="text-[16px]">{city.name}</h3>
-                  
-                  <h2 className="text-sm opacity-80 ">{city.admin1}</h2>
+
+                    <h2 className="text-sm opacity-80 ">{city.admin1}</h2>
                   </div>
                   {city.country_code && (
                     <img
@@ -101,12 +104,8 @@ export default function CitySearch() {
         searchTerm.length >= 2 &&
         Array.isArray(data?.results) &&
         data.results.length === 0 && (
-          <div className="text-center text-gray-500 py-8">
-            No city founded!
-          </div>
+          <div className="text-center text-gray-500 py-8">No city founded!</div>
         )}
-
-      {/* Selected City Details */}
     </div>
   );
 }
