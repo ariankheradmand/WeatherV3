@@ -242,7 +242,7 @@ function Daily({ latitude, longitude }) {
             className="bg-gradient-to-br from-gray to-white overflow-hidden 
                        min-w-[100%] md:min-w-100 px-6 py-6 rounded-md shadow 
                        flex flex-col items-start justify-center gap-6 
-                       snap-center"
+                       snap-center mt-4"
           >
             {isFetching && isLoading && (
               <div className="flex flex-col items-center justify-center w-full gap-4">
