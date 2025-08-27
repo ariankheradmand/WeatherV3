@@ -17,7 +17,7 @@ import {
   Moon,
   Wind,
 } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 function Results({ latitude, longitude, cityName }) {
   const { data, isLoading, error, isFetching } = useWeatherForecast(
@@ -151,15 +151,10 @@ function Results({ latitude, longitude, cityName }) {
   return (
     <div
       key={data}
-      className="bg-gradient-to-br relative from-gray overflow-hidden  w-[85%] md:w-100 to-white px-6 py-6 rounded-md shadow flex flex-col items-start justify-center gap-6"
+      className="bg-gradient-to-br relative from-gray overflow-hidden min-h-[256px]  w-[85%] md:w-100 to-white px-6 py-6 rounded-md shadow flex flex-col items-start justify-center gap-6"
     >
       {isLoading && isFetching && (
         <div className="flex flex-col items-center justify-center w-full gap-4">
-          <span className=" absolute flex items-center justify-center size-25 opacity-75 bg-gray overflow-hidden">
-            <div className="w-full h-full relative">
-              <span className="h-60 w-6  bg-gradient-to-r from-white to-gray absolute -top-30 rotate-45 left-20 skeleton-r"></span>
-            </div>
-          </span>
           <div className="flex items-center justify-between w-full">
             <div className="text-3xl bg-gray h-11 w-[30%] rounded-md relative overflow-hidden">
               <span className="h-60 w-6  bg-gradient-to-r from-white to-gray absolute -top-30 rotate-45 left-20 skeleton-r"></span>
@@ -176,16 +171,16 @@ function Results({ latitude, longitude, cityName }) {
               <span className="h-60 w-6 bg-gradient-to-r from-white to-gray absolute -top-30 rotate-45 left-20 skeleton-r"></span>
             </div>
           </div>
+          <span className=" flex items-center justify-center size-25 opacity-75 bg-gray overflow-hidden">
+            <div className="w-full h-full relative">
+              <span className="h-60 w-6  bg-gradient-to-r from-white to-gray absolute -top-30 rotate-45 left-20 skeleton-r"></span>
+            </div>
+          </span>
         </div>
       )}
       {!isFetching && !isLoading && !error && (
         <div className="flex flex-col items-center justify-center w-full gap-4 py-2">
-          <span className="flex flex-col items-center justify-center opacity-75 absolute gap-2 md:gap-0">
-            {weatherCodeToIcon(data.current.weather_code)}
-            <span className="text-sm font-medium text-gray-600">
-              {weatherCodeToText(data.current.weather_code)}
-            </span>
-          </span>
+          
           <div className="flex items-center justify-between w-full">
             <div className="text-3xl mask-b-from-50% font-bold  mask-b-from-zinc-400">
               {cityName}
@@ -195,15 +190,21 @@ function Results({ latitude, longitude, cityName }) {
             </div>
           </div>
           <div className="flex  items-center justify-between w-full">
-            <div className="flex items-center justify-center gap-2 mask-b-from-60% mask-b-from-zinc-400 opacity-70">
-              {data.current.wind_speed_10m}
+            <div className="flex items-center justify-center gap-2 opacity-70 border-white border shadow px-1 rounded-lg">
+              {data.current.wind_speed_10m+ " Km/h"}
               <Wind />
             </div>
-            <div className="flex items-center justify-center gap-2 mask-b-from-60% mask-b-from-zinc-400 opacity-70">
-              {data.current.relative_humidity_2m}
+            <div className="flex items-center justify-center gap-2 opacity-70 border-white border shadow px-1 rounded-lg">
+              {data.current.relative_humidity_2m + "%"}
               <Droplet />
             </div>
           </div>
+          <span className="flex flex-col items-center justify-center opacity-75  gap-2 md:gap-0 ">
+            {weatherCodeToIcon(data.current.weather_code)}
+            <span className="text-sm font-medium text-gray-600 border-white border shadow px-1 rounded-lg">
+              {weatherCodeToText(data.current.weather_code)}
+            </span>
+          </span>
         </div>
       )}
     </div>

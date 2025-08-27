@@ -35,7 +35,7 @@ export default function CitySearch({ setLongitude, setLatitude , setCityName}) {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Enter the city name..."
-          className={`w-full outline-none focus:ring-0 focus:outline-none px-4 py-2 border border-gray-300 rounded-md`}
+          className={`w-full outline-none focus:ring-0 focus:outline-none px-4 py-2 border border-gray-300 rounded-md `}
         />
 
         {isFetching && isLoading && (
@@ -78,7 +78,7 @@ export default function CitySearch({ setLongitude, setLatitude , setCityName}) {
                   setSearchTerm("")
                 }}
                 key={city.id}
-                className="bg-gray w-full h-10 rounded-md relative overflow-hidden px-2 flex items-center justify-between hover:scale-101 hover:bg-gray/45 transition-all cursor-pointer"
+                className="bg-gray w-full h-10 rounded-md relative overflow-hidden px-2 flex items-center justify-between hover:scale-101 hover:bg-gray/45 transition-all cursor-pointer border-white border shadow "
               >
                 <div className="flex items-center justify-between w-full gap-2 relative">
                   <div className="flex items-center justify-center gap-2">
