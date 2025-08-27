@@ -82,9 +82,9 @@ export default function CitySearch({ setLongitude, setLatitude , setCityName}) {
               >
                 <div className="flex items-center justify-between w-full gap-2 relative">
                   <div className="flex items-center justify-center gap-2">
-                    <h3 className="text-[16px]">{city.name}</h3>
+                    <h3 className="text-[13px] md:text-[16px]">{city.name}</h3>
 
-                    <h2 className="text-sm opacity-80 ">{city.admin1}</h2>
+                    <h2 className="text-[12px] md:text-[16px] opacity-80 ">{city.admin1}</h2>
                   </div>
                   {city.country_code && (
                     <img
