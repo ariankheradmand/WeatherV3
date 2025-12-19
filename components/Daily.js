@@ -182,6 +182,10 @@ function Daily({ latitude, longitude }) {
     );
   }, [isFetching]);
 
+  if (error) {
+    return null; // Results will show the error
+  }
+
   return (
     <div className="flex flex-col items-center justify-center w-full gap-4 mb-20 relative">
       <span className="w-[85%] md:w-100 relative">
@@ -203,7 +207,7 @@ function Daily({ latitude, longitude }) {
           <button
             className="shadow border-white border rounded-lg px-3 py-px hover:scale-105 cursor-pointer"
             onClick={() => {
-              const newIndex = Math.min(activeIndex + 1, 6); 
+              const newIndex = Math.min(activeIndex + 1, 6);
               setActiveIndex(newIndex);
               scrollToIndex(newIndex);
               if (activeIndex == 6) {
@@ -222,9 +226,8 @@ function Daily({ latitude, longitude }) {
           <button
             key={i}
             onClick={() => scrollToIndex(i)}
-            className={`w-5 h-1 rounded-full transition-all cursor-pointer z-20 ${
-              activeIndex === i ? "bg-white scale-110" : "bg-gray-400"
-            }`}
+            className={`w-5 h-1 rounded-full transition-all cursor-pointer z-20 ${activeIndex === i ? "bg-white scale-110" : "bg-gray-400"
+              }`}
           />
         ))}
       </div>
@@ -244,7 +247,7 @@ function Daily({ latitude, longitude }) {
                        flex flex-col items-start justify-center gap-6 
                        snap-center mt-4"
           >
-            {isFetching && isLoading && (
+            {(isLoading || isFetching) && (
               <div className="flex flex-col items-center justify-center w-full gap-4">
                 <div className="flex items-center justify-center ">
                   <div className="w-22 h-6 rounded-lg bg-gray relative overflow-hidden">
@@ -266,7 +269,7 @@ function Daily({ latitude, longitude }) {
                 </div>
               </div>
             )}
-            {!isFetching && !isLoading && !error && (
+            {!isFetching && !isLoading && !error && data?.daily && (
               <div className="flex flex-col items-center justify-center w-full gap-2">
                 <div className="flex items-center justify-start">
                   <div className="text-sm opacity-70 border-white border shadow px-1 rounded-lg">

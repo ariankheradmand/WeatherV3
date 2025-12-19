@@ -57,16 +57,16 @@ function Results({ latitude, longitude, cityName }) {
       case 80: // Rain showers slight
       case 81: // Moderate rain showers
       case 82: // Violent rain showers
-        return <CloudRain className=" size-17 md:size-25 "/>;
+        return <CloudRain className=" size-17 md:size-25 " />;
       case 85: // Slight snow showers
       case 86: // Heavy snow showers
-        return <CloudSnow className=" size-17 md:size-25 "/>;
+        return <CloudSnow className=" size-17 md:size-25 " />;
       case 95: // Thunderstorm slight or moderate
       case 96: // Thunderstorm with slight hail
       case 99: // Thunderstorm with heavy hail
-        return <CloudLightning className=" size-17 md:size-25 "/>;
+        return <CloudLightning className=" size-17 md:size-25 " />;
       default:
-        return <Cloud className=" size-17 md:size-25 "/>;
+        return <Cloud className=" size-17 md:size-25 " />;
     }
   };
 
@@ -148,12 +148,20 @@ function Results({ latitude, longitude, cityName }) {
     );
   }, [isFetching]);
 
+  if (error) {
+    return (
+      <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded w-[85%] md:w-100">
+        Error loading weather: {error}
+      </div>
+    );
+  }
+
   return (
     <div
-      key={data}
+      key={cityName}
       className="bg-gradient-to-br relative from-gray overflow-hidden min-h-[256px]  w-[85%] md:w-100 to-white px-6 py-6 rounded-md shadow flex flex-col items-start justify-center gap-6"
     >
-      {isLoading && isFetching && (
+      {(isLoading || isFetching) && (
         <div className="flex flex-col items-center justify-center w-full gap-4">
           <div className="flex items-center justify-between w-full">
             <div className="text-3xl bg-gray h-11 w-[30%] rounded-md relative overflow-hidden">
@@ -178,9 +186,9 @@ function Results({ latitude, longitude, cityName }) {
           </span>
         </div>
       )}
-      {!isFetching && !isLoading && !error && (
+      {!isFetching && !isLoading && !error && data?.current && (
         <div className="flex flex-col items-center justify-center w-full gap-4 py-2">
-          
+
           <div className="flex items-center justify-between w-full">
             <div className="text-3xl mask-b-from-50% font-bold  mask-b-from-zinc-400">
               {cityName}
@@ -191,7 +199,7 @@ function Results({ latitude, longitude, cityName }) {
           </div>
           <div className="flex  items-center justify-between w-full">
             <div className="flex items-center justify-center gap-2 opacity-70 border-white border shadow px-1 rounded-lg">
-              {data.current.wind_speed_10m+ " Km/h"}
+              {data.current.wind_speed_10m + " Km/h"}
               <Wind />
             </div>
             <div className="flex items-center justify-center gap-2 opacity-70 border-white border shadow px-1 rounded-lg">
